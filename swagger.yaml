@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Series Tracker API
+  version: 1.0.0
+  description: API para gestionar series de TV/Streaming.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/series:
+    get:
+      summary: Obtiene todas las series
+      responses:
+        '200':
+          description: Lista de series
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Series'
+    post:
+      summary: Crea una nueva serie
+      requestBody:
+        description: Objeto serie
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Series'
+      responses:
+        '200':
+          description: Serie creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+  /api/series/{id}:
+    get:
+      summary: Obtiene una serie por ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID de la serie
+      responses:
+        '200':
+          description: Serie encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+        '404':
+          description: Serie no encontrada
+    put:
+      summary: Actualiza una serie existente
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID de la serie
+      requestBody:
+        description: Objeto serie con nuevos datos
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Series'
+      responses:
+        '200':
+          description: Serie actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+        '404':
+          description: Serie no encontrada
+    delete:
+      summary: Elimina una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID de la serie
+      responses:
+        '204':
+          description: Serie eliminada
+        '404':
+          description: Serie no encontrada
+  /api/series/{id}/status:
+    patch:
+      summary: Actualiza el estado de una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID de la serie
+      requestBody:
+        description: Objeto con el nuevo estado
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '204':
+          description: Estado actualizado
+        '404':
+          description: Serie no encontrada
+  /api/series/{id}/episode:
+    patch:
+      summary: Incrementa el episodio actual de una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID de la serie
+      responses:
+        '204':
+          description: Episodio incrementado
+        '404':
+          description: Serie no encontrada
+  /api/series/{id}/upvote:
+    patch:
+      summary: Incrementa la puntuación de una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID de la serie
+      responses:
+        '204':
+          description: Puntuación incrementada
+        '404':
+          description: Serie no encontrada
+  /api/series/{id}/downvote:
+    patch:
+      summary: Disminuye la puntuación de una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID de la serie
+      responses:
+        '204':
+          description: Puntuación disminuida
+        '404':
+          description: Serie no encontrada
+components:
+  schemas:
+    Series:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        current_episode:
+          type: integer
+        score:
+          type: integer

@@ -1,0 +1,39 @@
+Uso de la API Series Tracker:
+
+Endpoints disponibles:
+
+1. GET /api/series
+   - Descripción: Obtiene la lista de todas las series.
+   - Uso: Realiza una petición GET y se obtiene un array con los objetos de series.
+
+2. GET /api/series/{id}
+   - Descripción: Obtiene los detalles de una serie por su ID.
+   - Uso: Realiza una petición GET reemplazando {id} por el identificador de la serie.
+
+3. POST /api/series
+   - Descripción: Crea una nueva serie.
+   - Uso: Realiza una petición POST enviando en el body un objeto JSON con los campos: title, description, status, current_episode y score.
+
+4. PUT /api/series/{id}
+   - Descripción: Actualiza una serie existente.
+   - Uso: Realiza una petición PUT enviando en el body un objeto JSON con los nuevos datos de la serie.
+
+5. DELETE /api/series/{id}
+   - Descripción: Elimina una serie por su ID.
+   - Uso: Realiza una petición DELETE a la URL con el ID de la serie.
+
+6. PATCH /api/series/{id}/status
+   - Descripción: Actualiza el estado de una serie.
+   - Uso: Realiza una petición PATCH enviando en el body un objeto JSON: { "status": "nuevo_estado" }.
+
+7. PATCH /api/series/{id}/episode
+   - Descripción: Incrementa el contador del episodio actual de la serie.
+   - Uso: Realiza una petición PATCH para incrementar en uno el valor current_episode.
+
+8. PATCH /api/series/{id}/upvote
+   - Descripción: Incrementa la puntuación de la serie.
+   - Uso: Realiza una petición PATCH para aumentar en uno el valor score.
+
+9. PATCH /api/series/{id}/downvote
+   - Descripción: Disminuye la puntuación de la serie.
+   - Uso: Realiza una petición PATCH para disminuir en uno el valor score.
